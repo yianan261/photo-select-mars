@@ -5,25 +5,31 @@ import { RiHeartLine, RiHeartFill } from "react-icons/ri";
 
 function RenderImg() {
   const [imgs, setImgs] = useState([]);
-  const [heart, setHeart] = useState(new Map());
 
+  
   useEffect(() => {
+    console.log("effect")
     axios
       .get(
         `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=10&api_key=c1FNqfNYAzqQKjJ6clG3rXbXzXFeCtGbVlZU0O1K`
       )
       .then((res) => {
-        console.log(res);
+        console.log("line 15", res);
         setImgs(res.data.photos);
-        const Id = new Map();
-
-        res.data.photos.forEach((element) => {
-          Id.set(element.id, false);
-        });
-        setHeart(Id);
       })
       .catch((err) => console.log(err));
   }, []);
+  
+  const [heart, setHeart] = useState(new Map());
+  useEffect(()=>{ 
+    const Ids = new Map();
+    imgs.forEach((element) => {
+      Ids.set(element.id, false);
+    });
+    setHeart(Ids)
+  },[imgs]);
+  console.log(":31 heart",heart)
+  
 
   /**
    * function that renders heart icon
@@ -34,12 +40,12 @@ function RenderImg() {
       <a
         href="#"
         className="btn btn-lg"
-        onClick={() =>
-          setHeart((prev) => {
-            console.log("PREV", prev);
-            prev.set(id, !prev.get(id));
-          })
-        }
+        onClick={() =>{
+          console.log(":45 PREV before", heart);
+          const Ids = new Map(heart);
+          Ids.set(id, !Ids.get(id));
+          setHeart(Ids);
+        }}
       >
         {heart.get(id) ? (
           <RiHeartFill className="heart" size={30} style={{ color: "red" }} />
@@ -64,7 +70,7 @@ function RenderImg() {
     }
     return pairs;
   }
-  console.log(imgs);
+  console.log("line 66", imgs);
   let imagePairs = display(2, imgs);
 
   return (
