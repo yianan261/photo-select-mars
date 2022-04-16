@@ -1,0 +1,38 @@
+body{
+    background-color: rgb(9, 0, 34);
+  
+  
+  }
+
+.Home{
+    color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.vid1{
+    padding-top: 5%;
+    display: flex;
+    margin: auto;
+}
+
+.inHome{
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 5%;
+}
+
+.heart:hover{
+    color:rgb(253, 120, 193);
+    animation: pulse 1s infinite;
+  animation-timing-function: linear
+    
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    60% { transform: scale(1.8);
+    100% { transform: scale(1); }
+    }
+  }
