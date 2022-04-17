@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import "../style/Render.css";
 import { RiHeartLine, RiHeartFill } from "react-icons/ri";
 import PropTypes from "prop-types";
 
-function RenderImg({ addFave }) {
-  const [imgs, setImgs] = useState([]);
+function RenderImg({ addFave, imgs }) {
+  // const [imgs, setImgs] = useState([]);
   const [heart, setHeart] = useState(new Map());
 
-  useEffect(() => {
-    axios
-      .get(
-        `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=10&api_key=c1FNqfNYAzqQKjJ6clG3rXbXzXFeCtGbVlZU0O1K`
-      )
-      .then((res) => {
-        setImgs(res.data.photos);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=10&api_key=c1FNqfNYAzqQKjJ6clG3rXbXzXFeCtGbVlZU0O1K`
+  //     )
+  //     .then((res) => {
+  //       setImgs(res.data.photos);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   useEffect(() => {
     const initialIds = new Map();
@@ -103,5 +103,6 @@ function RenderImg({ addFave }) {
 
 RenderImg.propTypes = {
   addFave: PropTypes.any.isRequired,
+  imgs: PropTypes.array.isRequired,
 };
 export default RenderImg;

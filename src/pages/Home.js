@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import RenderImg from "../components/RenderImg";
 import "../style/Home.css";
+import PropTypes from "prop-types";
 
-const Home = () => {
+const Home = ({ imgs }) => {
   const [faveList, setFaveList] = useState([]);
 
   /**
@@ -25,11 +26,14 @@ const Home = () => {
     <div className="Home">
       <div className="container">
         <div className="inHome">
-          <RenderImg addFave={addFave} />
+          <RenderImg addFave={addFave} imgs={imgs} />
         </div>
       </div>
     </div>
   );
 };
 
+Home.propTypes = {
+  imgs: PropTypes.array.isRequired,
+};
 export default Home;

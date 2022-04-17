@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../style/Filter.css";
+import { roverCamMap } from "./RoverCam";
 
 function SelectRover() {
+  const [isCButtonActive, setCButtonActive] = useState(false);
+  const [isOButtonActive, setOButtonActive] = useState(false);
+  const [isSButtonActive, setSButtonActive] = useState(false);
+
+  const handleCButton = () => {
+    isCButtonActive ? setCButtonActive(false) : setCButtonActive(true);
+  };
+
+  const handleOButton = () => {
+    isOButtonActive ? setOButtonActive(false) : setOButtonActive(true);
+  };
+
+  const handleSButton = () => {
+    isSButtonActive ? setSButtonActive(false) : setSButtonActive(true);
+  };
+
+  useEffect(() => {});
+
   return (
     <div className="SelectRover">
       <div className="container">
@@ -14,6 +33,8 @@ function SelectRover() {
                 type="button"
                 className="btn btn-primary btn-lg btn-block"
                 aria-pressed="true"
+                id={`${isCButtonActive ? "CButtonActive" : ""}`}
+                onClick={handleCButton}
               >
                 Curiosity
               </button>
@@ -23,6 +44,8 @@ function SelectRover() {
                 type="button"
                 className="btn btn-primary btn-lg btn-block"
                 aria-pressed="true"
+                id={`${isOButtonActive ? "OButtonActive" : ""}`}
+                onClick={handleOButton}
               >
                 Opportunity
               </button>
@@ -32,24 +55,13 @@ function SelectRover() {
                 type="button"
                 className="btn btn-primary btn-lg btn-block"
                 aria-pressed="true"
+                id={`${isSButtonActive ? "SButtonActive" : ""}`}
+                onClick={handleSButton}
               >
                 Spirit
               </button>
             </div>
           </div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias officia
-          ullam optio nesciunt eveniet voluptate quia? Omnis ad, ducimus totam
-          esse neque ipsum molestiae commodi. Iste cumque quisquam dolorum
-          tempora. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Alias officia ullam optio nesciunt eveniet voluptate quia? Omnis ad,
-          ducimus totam esse neque ipsum molestiae commodi. Iste cumque quisquam
-          dolorum tempora. Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Alias officia ullam optio nesciunt eveniet voluptate quia? Omnis
-          ad, ducimus totam esse neque ipsum molestiae commodi. Iste cumque
-          quisquam dolorum tempora. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Alias officia ullam optio nesciunt eveniet voluptate
-          quia? Omnis ad, ducimus totam esse neque ipsum molestiae commodi. Iste
-          cumque quisquam dolorum tempora.
         </div>
       </div>
     </div>
