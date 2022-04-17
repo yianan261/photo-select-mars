@@ -1,29 +1,31 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
+import Navbar from "../components/Navbar";
 import RenderImg from "../components/RenderImg";
 import "../style/Home.css";
-// import { RiHeartLine, RiHeartFill } from "react-icons/ri";
 
 const Home = () => {
-  // const [heart, setHeart] = useState(false);
+  const [faveList, setFaveList] = useState([]);
 
-  // function renderHeart() {
-  //   return (
-  //     <a href="#" className="btn btn-lg" onClick={() => setHeart(!heart)}>
-  //       {heart ? (
-  //         <RiHeartFill className="heart" size={30} style={{ color: "red" }} />
-  //       ) : (
-  //         <RiHeartLine className="heart" size={30} style={{ color: "red" }} />
-  //       )}
-  //     </a>
-  //   );
-  // }
+  /**
+   * Function that adds and removes favorited rover images
+   * @param {*} obj takes object that is clicked
+   * @param {*} heartMap takes the hash map of "heart"
+   */
+  const addFave = (obj, heartMap) => {
+    if (heartMap.get(obj.id)) {
+      setFaveList([...faveList].concat(obj));
+    } else {
+      setFaveList(faveList.filter((i) => i.id !== obj.id));
+    }
+    console.log("FaveList in Home", faveList);
+  };
 
   return (
     <div className="Home">
       <div className="container">
         <div className="inHome">
-        {/* heart={renderHeart} */}
-          <RenderImg  /> 
+          <RenderImg addFave={addFave} />
         </div>
       </div>
     </div>

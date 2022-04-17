@@ -1,7 +1,10 @@
+
 .imgs{
     width:100%;
+    min-width: auto;
     height:70%;
     object-fit:cover ;
+    border-radius: 2%;
 }
 
 /* .imgRender{
@@ -15,12 +18,17 @@
    margin: 3%;
    width: 800px;
    background-color: rgb(9, 0, 34);
-   border-radius: 5%;
-   
+     
 }
 
 .card-body{
     padding: 5px;
+    font-family: 'Akshar', sans-serif;
+    font-size: large;
+}
+
+.card-title{
+  font-size:x-large;
 }
 
 .cardlink{
@@ -33,15 +41,13 @@
 
 
 .heart:hover{
-    color:rgb(253, 120, 193);
-    animation: pulse 1s infinite;
-  animation-timing-function: linear
-    
+    transform: scale(1.25);
+    transition: all ease 1s;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    60% { transform: scale(1.8);
-    100% { transform: scale(1); }
+  @media all and (max-width:1198px) {
+    #cardGroup{
+      display: flex;
+      flex-direction: column;
     }
   }

@@ -1,5 +1,6 @@
 import React from "react";
 import "../style/Navbar.css";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -23,13 +24,32 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link" href="#" id="home">
-                  Home
-                </a>
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  <a className="nav-link" href="#" id="home">
+                    Home
+                  </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#" id="myfave">
                   My Favorites
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#" id="myfave">
+                  Curiosity
+                </a>
+              </li>
+              <li className="nav-item">
+                <Link to="/Opportunity" style={{ textDecoration: "none" }}>
+                  <a className="nav-link" id="myfave">
+                    Opportunity
+                  </a>
+                </Link>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#" id="myfave">
+                  Spirit
                 </a>
               </li>
             </ul>

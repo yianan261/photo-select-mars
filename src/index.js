@@ -6,6 +6,8 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import UserAccount from "./pages/UserAccount";
+import Opportunity from "./components/Opportunity";
+import Main from "./pages/Main";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -13,8 +15,10 @@ root.render(
     <BrowserRouter>
       <App />
       <Routes>
+        <Route path="/" element={<Main />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/Account" element={<UserAccount />} />
+        <Route path="/Opportunity" element={<Opportunity />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

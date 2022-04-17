@@ -2,52 +2,51 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../style/Render.css";
 import { RiHeartLine, RiHeartFill } from "react-icons/ri";
+import PropTypes from "prop-types";
 
-function RenderImg() {
+function RenderImg({ addFave }) {
   const [imgs, setImgs] = useState([]);
+  const [heart, setHeart] = useState(new Map());
 
-  
   useEffect(() => {
-    console.log("effect")
     axios
       .get(
         `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=10&api_key=c1FNqfNYAzqQKjJ6clG3rXbXzXFeCtGbVlZU0O1K`
       )
       .then((res) => {
-        console.log("line 15", res);
         setImgs(res.data.photos);
       })
       .catch((err) => console.log(err));
   }, []);
-  
-  const [heart, setHeart] = useState(new Map());
-  useEffect(()=>{ 
-    const Ids = new Map();
+
+  useEffect(() => {
+    const initialIds = new Map();
     imgs.forEach((element) => {
-      Ids.set(element.id, false);
+      initialIds.set(element.id, false);
     });
-    setHeart(Ids)
-  },[imgs]);
-  console.log(":31 heart",heart)
-  
+
+    setHeart(initialIds);
+  }, [imgs]);
+  console.log(":31 heart", heart);
 
   /**
    * function that renders heart icon
-   * @returns heart icon conditional rendering
+   * @returns heart icon in conditional rendering
    */
-  function renderHeart(id) {
+  function renderHeart(_id) {
     return (
       <a
-        href="#"
         className="btn btn-lg"
-        onClick={() =>{
-          console.log(":45 PREV before", heart);
+        onClick={() => {
           const Ids = new Map(heart);
-          Ids.set(id, !Ids.get(id));
+          Ids.set(_id, !Ids.get(_id));
           setHeart(Ids);
+          let getObj = imgs.find((i) => i.id === _id);
+          console.log("getOBJ", getObj);
+          addFave(getObj, heart);
         }}
       >
-        {heart.get(id) ? (
+        {heart.get(_id) ? (
           <RiHeartFill className="heart" size={30} style={{ color: "red" }} />
         ) : (
           <RiHeartLine className="heart" size={30} style={{ color: "red" }} />
@@ -58,7 +57,7 @@ function RenderImg() {
 
   /**
    * function that displays the returned images in horizontal pairs
-   * @param {*} size we want to show in a row (in this case 2)
+   * @param {*} size, shows the images in a row of size(in this case 2)
    * @param {*} array (the array returned from imgs, from the NASA API key)
    * @returns
    */
@@ -70,7 +69,6 @@ function RenderImg() {
     }
     return pairs;
   }
-  console.log("line 66", imgs);
   let imagePairs = display(2, imgs);
 
   return (
@@ -79,7 +77,7 @@ function RenderImg() {
         {imagePairs.map((rover, idx) => (
           <div className="card-group " id="cardGroup" key={idx}>
             {rover.map((roverpic) => (
-              <div className="card" id="cardimage" key={roverpic.id}>
+              <div className="card container" id="cardimage" key={roverpic.id}>
                 <div className="card-body">
                   <h5 className="card-title"> Rover: {roverpic.rover.name}</h5>
                   <img className="imgs" src={roverpic.img_src} alt="" />
@@ -92,20 +90,7 @@ function RenderImg() {
                     <br />
                     Status: {roverpic.rover.status}
                   </p>
-                  <div className="cardlink">
-                    {renderHeart(roverpic.id)}
-                    {/* <a
-                      href="#"
-                      className="btn btn-lg"
-                      onClick={() => setHeart(!heart)}
-                    >
-                      <RiHeartLine
-                        className="heart"
-                        size={30}
-                        style={{ color: "red" }}
-                      />
-                    </a> */}
-                  </div>
+                  <div className="cardlink">{renderHeart(roverpic.id)}</div>
                 </div>
               </div>
             ))}
@@ -116,4 +101,7 @@ function RenderImg() {
   );
 }
 
+RenderImg.propTypes = {
+  addFave: PropTypes.any.isRequired,
+};
 export default RenderImg;
