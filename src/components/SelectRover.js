@@ -1,25 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "../style/Filter.css";
-import { roverCamMap } from "./RoverCam";
+// import { roverCamMap } from "./RoverCam";
+import PropTypes from "prop-types";
 
-function SelectRover() {
-  const [isCButtonActive, setCButtonActive] = useState(false);
-  const [isOButtonActive, setOButtonActive] = useState(false);
-  const [isSButtonActive, setSButtonActive] = useState(false);
+function SelectRover({isCButtonActive, isOButtonActive, isSButtonActive, handleCButton, handleOButton, handleSButton}) {
+  // const [isCButtonActive, setCButtonActive] = useState(false);
+  // const [isOButtonActive, setOButtonActive] = useState(false);
+  // const [isSButtonActive, setSButtonActive] = useState(false);
 
-  const handleCButton = () => {
-    isCButtonActive ? setCButtonActive(false) : setCButtonActive(true);
-  };
+  // const handleCButton = () => {
+  //   isCButtonActive ? setCButtonActive(false) : setCButtonActive(true);
+  // };
 
-  const handleOButton = () => {
-    isOButtonActive ? setOButtonActive(false) : setOButtonActive(true);
-  };
+  // const handleOButton = () => {
+  //   isOButtonActive ? setOButtonActive(false) : setOButtonActive(true);
+  // };
 
-  const handleSButton = () => {
-    isSButtonActive ? setSButtonActive(false) : setSButtonActive(true);
-  };
+  // const handleSButton = () => {
+  //   isSButtonActive ? setSButtonActive(false) : setSButtonActive(true);
+  // };
 
-  useEffect(() => {});
+  console.log("C", isCButtonActive)
 
   return (
     <div className="SelectRover">
@@ -67,5 +68,14 @@ function SelectRover() {
     </div>
   );
 }
+
+SelectRover.propTypes = {
+  isCButtonActive: PropTypes.any.isRequired,
+  isOButtonActive: PropTypes.any.isRequired,
+  isSButtonActive: PropTypes.any.isRequired,
+  handleCButton:PropTypes.func.isRequired,
+  handleOButton:PropTypes.func.isRequired,
+  handleSButton:PropTypes.func.isRequired
+};
 
 export default SelectRover;
