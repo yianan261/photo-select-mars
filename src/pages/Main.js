@@ -39,7 +39,7 @@ function Main() {
     if (camera.Curiosity.length > 0) getReq("curiosity");
     else if (camera.Opportunity.length > 0) getReq("opportunity");
     else if (camera.Spirit.length > 0) getReq("spirit");
-  }, []);
+  }, [solDay, camera]);
 
   /**
    * handleSelectOption function handles the form of the selected cameras in "SelectCamera.js" component
@@ -95,16 +95,47 @@ function Main() {
   const handleSubmitData = (e) => {
     e.preventDefault();
     if (camera.Curiosity.length > 0) {
-      setImgs(imgs.filter((i) => i.camera.name.includes(camera.Curiosity)));
-      // } else if (camera.Opportunity.length > 0) {
-      //   setImgs(imgs.filter((i) => );
-      // } else if (camera.Spirit.length > 0) {
-      //   setImgs(imgs.filter((i) => );
-      // }
-      setSubmit(true);
-      console.log("Submitted values", camera);
+      console.log(imgs);
+      setImgs(
+        imgs.filter((i) => {
+          if (camera.Curiosity.includes(i.camera.name)) {
+            return true;
+          }
+          return false;
+        })
+      );
     }
+    if (camera.Opportunity.length > 0) {
+      console.log(imgs);
+      setImgs(
+        imgs.filter((i) => {
+          if (camera.Opportunity.includes(i.camera.name)) {
+            return true;
+          }
+          return false;
+        })
+      );
+    }
+    if (camera.Spirit.length > 0) {
+      console.log(imgs);
+      setImgs(
+        imgs.filter((i) => {
+          if (camera.Spirit.includes(i.camera.name)) {
+            return true;
+          }
+          return false;
+        })
+      );
+    }
+    // } else if (camera.Opportunity.length > 0) {
+    //   setImgs(imgs.filter((i) => );
+    // } else if (camera.Spirit.length > 0) {
+    //   setImgs(imgs.filter((i) => );
+    // }
+    setSubmit(true);
+    console.log("Submitted values", camera);
   };
+  console.log(imgs);
 
   /** handle button functions toggle button activation when Rovers are selected or deselected */
   const handleCButton = () => {
