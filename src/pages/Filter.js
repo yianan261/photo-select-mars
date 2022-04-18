@@ -15,7 +15,7 @@ function Filter({
   handleSButton,
   handleSelectOption,
   handleSubmitData,
-  handleSolDay,
+  // handleSolDay,
 }) {
   // const [isCButtonActive, setCButtonActive] = useState(false);
   // const [isOButtonActive, setOButtonActive] = useState(false);
@@ -96,7 +96,7 @@ function Filter({
         isSButtonActive={isSButtonActive}
         handleSelectOption={handleSelectOption}
         handleSubmitData={handleSubmitData}
-        handleSolDay={handleSolDay}
+        // handleSolDay={handleSolDay}
       />
       {/* <SelectSol /> */}
     </div>
@@ -113,7 +113,7 @@ Filter.propTypes = {
   handleSButton: PropTypes.func.isRequired,
   handleSelectOption: PropTypes.func.isRequired,
   handleSubmitData: PropTypes.func.isRequired,
-  handleSolDay: PropTypes.func.isRequired,
+  // handleSolDay: PropTypes.func.isRequired,
 };
 
 export default Filter;

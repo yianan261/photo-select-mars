@@ -10,7 +10,7 @@ function SelectCamera({
   isSButtonActive,
   handleSelectOption,
   handleSubmitData,
-  handleSolDay,
+  // handleSolDay,
 }) {
   return (
     <div className="SelectCamera">
@@ -167,7 +167,8 @@ function SelectCamera({
               </div>
             </div>
           </div>
-          <SelectSol handleSolDay={handleSolDay} />
+          {/* handleSolDay={handleSolDay} */}
+          <SelectSol />
           <div className="submitButton">
             <button type="submit" className="btn btn-primary" id="submitBtn">
               Submit
@@ -184,6 +185,6 @@ SelectCamera.propTypes = {
   isSButtonActive: PropTypes.any.isRequired,
   handleSelectOption: PropTypes.func.isRequired,
   handleSubmitData: PropTypes.func.isRequired,
-  handleSolDay: PropTypes.func.isRequired,
+  // handleSolDay: PropTypes.func.isRequired,
 };
 export default SelectCamera;

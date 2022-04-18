@@ -1,8 +1,9 @@
 import React from "react";
 import "../style/Filter.css";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
-function SelectSol({ handleSolDay }) {
+// { handleSolDay }
+function SelectSol() {
   return (
     <div className="form-group" id="SolForm">
       <label htmlFor="formGroupExampleInput" id="Sol">
@@ -12,13 +13,14 @@ function SelectSol({ handleSolDay }) {
         type="number"
         className="form-control"
         min="0"
-        onInput={handleSolDay}
+        name="sol"
+        // onInput={handleSolDay}
       />
       <div className="default">If not entered default is 1000 Sol</div>
     </div>
   );
 }
 SelectSol.propTypes = {
-  handleSolDay: PropTypes.func.isRequired,
+  // handleSolDay: PropTypes.func.isRequired,
 };
 export default SelectSol;
