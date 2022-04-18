@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 // import Home from "./Home";
 import Filter from "./Filter";
 import axios from "axios";
+import Home from "./Home";
+import Navbar from "../components/Navbar";
 
 function Main() {
   const [imgs, setImgs] = useState([]);
   const [isCButtonActive, setCButtonActive] = useState(false);
   const [isOButtonActive, setOButtonActive] = useState(false);
   const [isSButtonActive, setSButtonActive] = useState(false);
+
   // eslint-disable-next-line no-unused-vars
   const [submit, setSubmit] = useState(false);
 
@@ -34,10 +37,9 @@ function Main() {
       .then((res) => {
         // setImgs(res.data.photos);
 
-        
-        console.log("imgs",imgs)
+        console.log("imgs", imgs);
         if (rover.get(cam).length > 0) {
-          let tempArr = [...imgs]
+          let tempArr = [...imgs];
           tempArr = tempArr.concat(
             res.data.photos.filter((i) => {
               if (rover.get(cam).includes(i.camera.name)) {
@@ -45,11 +47,9 @@ function Main() {
               }
               return false;
             })
-          )
-          console.log("concate",tempArr)
-          setImgs(
-            tempArr
-            );
+          );
+          console.log("concate", tempArr);
+          setImgs(tempArr);
         }
       })
       .catch((err) => console.log(err));
@@ -228,6 +228,9 @@ function Main() {
     console.log("Submitted values", camera);
   };
 
+  const handleSubmit = () => {
+    setSubmit(false);
+  };
   /** handle button functions toggle button activation when Rovers are selected or deselected */
   const handleCButton = () => {
     isCButtonActive ? setCButtonActive(false) : setCButtonActive(true);
@@ -244,18 +247,23 @@ function Main() {
   //functions passed as props to children components
   return (
     <div className="Main">
-      <Filter
-        imgs={imgs}
-        isCButtonActive={isCButtonActive}
-        isOButtonActive={isOButtonActive}
-        isSButtonActive={isSButtonActive}
-        handleCButton={handleCButton}
-        handleOButton={handleOButton}
-        handleSButton={handleSButton}
-        handleSelectOption={handleSelectOption}
-        handleSubmitData={handleSubmitData}
-        // handleSolDay={handleSolDay}
-      />
+      <Navbar handleSubmit={handleSubmit} />
+      {submit ? (
+        <Home imgs={imgs} />
+      ) : (
+        <Filter
+          imgs={imgs}
+          isCButtonActive={isCButtonActive}
+          isOButtonActive={isOButtonActive}
+          isSButtonActive={isSButtonActive}
+          handleCButton={handleCButton}
+          handleOButton={handleOButton}
+          handleSButton={handleSButton}
+          handleSelectOption={handleSelectOption}
+          handleSubmitData={handleSubmitData}
+          // handleSolDay={handleSolDay}
+        />
+      )}
       {/* <Home imgs ={imgs} /> */}
     </div>
   );

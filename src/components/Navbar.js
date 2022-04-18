@@ -1,8 +1,9 @@
 import React from "react";
 import "../style/Navbar.css";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const Navbar = () => {
+const Navbar = ({ handleSubmit }) => {
   return (
     <div className="Navbar">
       <nav className="navbar navbar-expand-lg navbar-light ">
@@ -25,7 +26,12 @@ const Navbar = () => {
             <ul className="navbar-nav">
               <li className="nav-item">
                 <Link to="/" style={{ textDecoration: "none" }}>
-                  <a className="nav-link" href="#" id="home">
+                  <a
+                    className="nav-link"
+                    href="#"
+                    id="home"
+                    onClick={handleSubmit}
+                  >
                     Home
                   </a>
                 </Link>
@@ -71,4 +77,7 @@ const Navbar = () => {
   );
 };
 
+Navbar.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+};
 export default Navbar;

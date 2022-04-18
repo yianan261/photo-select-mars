@@ -36,7 +36,7 @@ function RenderImg({ addFave, imgs }) {
   function renderHeart(_id) {
     return (
       <a
-        className="btn btn-lg"
+        className="hearbtn"
         onClick={() => {
           const Ids = new Map(heart);
           Ids.set(_id, !Ids.get(_id));

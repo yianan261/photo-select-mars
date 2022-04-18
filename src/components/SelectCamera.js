@@ -18,7 +18,7 @@ function SelectCamera({
         <h1 className="selectcam">Select Camera</h1>
 
         <form className="selectForm" onSubmit={handleSubmitData}>
-          <div className="card">
+          <div className="card" id="card">
             <div className="cardContent">
               <div className="row">
                 <div className="col-12 col-md-4">
