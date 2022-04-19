@@ -6,7 +6,19 @@ import Home from "./Home";
 import Navbar from "../components/Navbar";
 
 function Main() {
-  const [imgs, setImgs] = useState([]);
+  const [imgsMap, setImgsMap] = useState(
+  new Map([
+    ["curiosity", []],
+    ["opportunity", []],
+    ["spirit", []],
+  ])
+  );
+
+  let imgs = [];
+  for (let value of imgsMap.values()) {
+    imgs = imgs.concat(value); 
+  }
+  console.log(imgs);
   const [isCButtonActive, setCButtonActive] = useState(false);
   const [isOButtonActive, setOButtonActive] = useState(false);
   const [isSButtonActive, setSButtonActive] = useState(false);
@@ -30,42 +42,56 @@ function Main() {
    * @param {*} cam is the rover (string)
    */
   function getReq(cam) {
-    axios
-      .get(
-        `https://api.nasa.gov/mars-photos/api/v1/rovers/${cam}/photos?sol=${solDay}&api_key=c1FNqfNYAzqQKjJ6clG3rXbXzXFeCtGbVlZU0O1K`
-      )
-      .then((res) => {
-        // setImgs(res.data.photos);
+    if (rover.get("curiosity").length > 0) {
+      return axios
+        .get(
+          `https://api.nasa.gov/mars-photos/api/v1/rovers/${cam}/photos?sol=${solDay}&api_key=c1FNqfNYAzqQKjJ6clG3rXbXzXFeCtGbVlZU0O1K`
+        )
+        .then((res) => {
+          // setImgsMap(res.data.photos);
 
-        console.log("imgs", imgs);
-        if (rover.get(cam).length > 0) {
-          let tempArr = [...imgs];
-          tempArr = tempArr.concat(
-            res.data.photos.filter((i) => {
-              if (rover.get(cam).includes(i.camera.name)) {
-                return true;
-              }
-              return false;
-            })
-          );
-          console.log("concate", tempArr);
-          setImgs(tempArr);
-        }
-      })
-      .catch((err) => console.log(err));
+          console.log("imgsMap", imgsMap);
+          // if (rover.get(cam).length > 0) {
+          //   let tempMap = new Map(imgsMap);
+          //   tempMap.set(cam,
+          //     res.data.photos.filter((i) => {
+          //       if (rover.get(cam).includes(i.camera.name)) {
+          //         return true;
+          //       }
+          //       return false;
+          //     })
+          //   );
+
+          //   setImgsMap(tempMap);
+          // }
+          return res.data.photos.filter((i) => {
+                  if (rover.get(cam).includes(i.camera.name)) {
+                    return true;
+                  }
+                  return false;
+                })
+        })
+        .catch((err) => console.log(err));
+    }
+    return [];
   }
-  console.log(rover);
 
   useEffect(() => {
-    if (rover.get("curiosity").length > 0) getReq("curiosity");
-
-    if (rover.get("opportunity").length > 0) getReq("opportunity");
-
-    if (rover.get("spirit").length > 0) getReq("spirit");
-
+    const fetchData = async () => {
+      const [imgsC, imgsO, imgsS] = await Promise.all([
+        getReq("curiosity"),
+        getReq("opportunity"),
+        getReq("spirit"),
+      ]);
+      let tempMap = new Map();
+      tempMap.set("curiosity", imgsC);
+      tempMap.set("opportunity", imgsO);
+      tempMap.set("spirit", imgsS);
+      setImgsMap(tempMap);
+    };
     // if (rover.get("opportunity").length > 0) {
-    //   setImgs(
-    //     imgs.filter((i) => {
+    //   setImgsMap(
+    //     imgsMap.filter((i) => {
     //       if (rover.get("opportunity").includes(i.camera.name)) {
     //         return true;
     //       }
@@ -74,8 +100,8 @@ function Main() {
     //   );
     // }
     // if (rover.get("spirit").length > 0) {
-    //   setImgs(
-    //     imgs.filter((i) => {
+    //   setImgsMap(
+    //     imgsMap.filter((i) => {
     //       if (rover.get("spirit").includes(i.camera.name)) {
     //         return true;
     //       }
@@ -83,9 +109,10 @@ function Main() {
     //     })
     //   );
     // }
-    // console.log("API", imgs);
+    // console.log("API", imgsMap);
+    fetchData();
   }, [solDay, rover]);
-  console.log(imgs);
+  console.log(imgsMap);
   /**
    * handleSelectOption function handles the form of the selected cameras in "SelectCamera.js" component
    * @param {*} e is event
@@ -190,8 +217,8 @@ function Main() {
     }
     setRover(tempRover);
     // if (tempRover.get("curiosity").length > 0) {
-    //   setImgs(
-    //     imgs.filter((i) => {
+    //   setImgsMap(
+    //     imgsMap.filter((i) => {
     //       if (tempRover.get("curiosity").includes(i.camera.name)) {
     //         return true;
     //       }
@@ -200,8 +227,8 @@ function Main() {
     //   );
     // }
     // if (tempRover.get("opportunity").length > 0) {
-    //   setImgs(
-    //     imgs.filter((i) => {
+    //   setImgsMap(
+    //     imgsMap.filter((i) => {
     //       if (tempRover.get("opportunity").includes(i.camera.name)) {
     //         return true;
     //       }
@@ -210,8 +237,8 @@ function Main() {
     //   );
     // }
     // if (tempRover.get("spirit").length > 0) {
-    //   setImgs(
-    //     imgs.filter((i) => {
+    //   setImgsMap(
+    //     imgsMap.filter((i) => {
     //       if (tempRover.get("spirit").includes(i.camera.name)) {
     //         return true;
     //       }
@@ -220,9 +247,9 @@ function Main() {
     //   );
     // }
     // } else if (camera.opportunity.length > 0) {
-    //   setImgs(imgs.filter((i) => );
+    //   setImgsMap(imgsMap.filter((i) => );
     // } else if (camera.spirit.length > 0) {
-    //   setImgs(imgs.filter((i) => );
+    //   setImgsMap(imgsMap.filter((i) => );
     // }
     setSubmit(true);
     console.log("Submitted values", camera);
@@ -264,7 +291,7 @@ function Main() {
           // handleSolDay={handleSolDay}
         />
       )}
-      {/* <Home imgs ={imgs} /> */}
+      {/* <Home imgsMap ={imgsMap} /> */}
     </div>
   );
 }
